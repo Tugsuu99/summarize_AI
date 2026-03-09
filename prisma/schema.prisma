@@ -11,10 +11,11 @@ datasource db {
 }
 
 model User {
-    id String @id @unique
+    id String @id @unique @default(uuid())
     isVerified Boolean @default(false)
     email String @unique
     name String?
+    clerkId String @unique
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }

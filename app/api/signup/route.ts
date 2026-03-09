@@ -1,8 +1,6 @@
-import { Webhook } from "svix";
-import { NextResponse, NextRequest } from "next/server";
 import prisma from "@/lib/prisma";
-import { error } from "console";
-import { json } from "stream/consumers";
+import { NextRequest, NextResponse } from "next/server";
+import { Webhook } from "svix";
 
 type Event = {
   type: string;
