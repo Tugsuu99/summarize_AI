@@ -22,3 +22,8 @@ model User {
 // model Article {
 // id String 
 // }
+
+model Article{
+ id String @id @unique
+ title String
+}

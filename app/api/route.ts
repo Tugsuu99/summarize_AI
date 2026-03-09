@@ -1,5 +1,5 @@
 import { Webhook } from "svix";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import prisma from "@/lib/prisma";
 import { error } from "console";
 import { json } from "stream/consumers";
@@ -14,7 +14,7 @@ type Event = {
   };
 };
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   const webhookSecret = process.env.CLERK_WEBHOOK_KEY;
 
   if (!webhookSecret) {
@@ -37,9 +37,9 @@ export async function POST(req: Request) {
 
   try {
     const event = webhook.verify(body, {
-      "svix-id": "svixId",
-      "svix-timestamp": "svixTimestamp",
-      "svix-signature": "svixSignature",
+      "svix-id": svixId,
+      "svix-timestamp": svixTimestamp,
+      "svix-signature": svixSignature,
     }) as Event;
 
     if (event.type === "user.created") {
