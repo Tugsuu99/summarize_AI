@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
       "svix-signature": svixSignature,
     }) as Event;
 
-    if (event.type === "user.created") {
+    if (event.type !== "user.created") {
       return NextResponse.json({ error: "Ignore event" }, { status: 400 });
     }
 
@@ -54,18 +54,14 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    // const user = await prisma.user.create({
-    //   data: {
-    //     email: "test1@test.com",
-    //     id: "2",
-    //   },
-    // });
-    // console.log(user);
     return NextResponse.json(
       { messae: "User created successfully" },
       { status: 201 },
     );
   } catch (error) {
-    return new Response("Error creating user", { status: 500 });
+    return NextResponse.json(
+      { message: "Error creating user" },
+      { status: 500 },
+    );
   }
 }
